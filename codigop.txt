@@ -1,0 +1,128 @@
+alloc 200
+desapila
+apila 12
+desapila_dir 0
+ir_a 6
+apila 11
+apila 6
+desapila_ind
+apila 11
+apila_ind
+out
+apila 11
+in
+desapila_ind
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind
+apila 11
+apila_ind
+apila 0
+distinto
+ir_f 36
+apila 11
+apila 11
+apila_ind
+apila 1
+resta
+desapila_ind
+apila 11
+apila_ind
+out
+ir_a 21
+apila 11
+apila_ind
+apila 11
+apila_ind
+apila 1
+suma
+mayor
+ir_f 66
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind
+apila 11
+apila 11
+apila_ind
+apila 2
+suma
+apila 3
+suma
+desapila_ind
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind
+ir_a 132
+apila 11
+apila_ind
+apila 11
+apila_ind
+apila 1
+suma
+mayor
+ir_f 95
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind
+apila 11
+apila 11
+apila_ind
+apila 2
+suma
+apila 3
+suma
+desapila_ind
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind
+ir_a 132
+apila 11
+apila_ind
+apila 11
+apila_ind
+apila 1
+suma
+mayor
+ir_f 124
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind
+apila 11
+apila 11
+apila_ind
+apila 2
+suma
+apila 3
+suma
+desapila_ind
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind
+ir_a 132
+apila 11
+apila 11
+apila_ind
+apila 1
+suma
+desapila_ind

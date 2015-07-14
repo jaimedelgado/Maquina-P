@@ -1,0 +1,2508 @@
+===== Viable Prefix Recognizer =====
+START lalr_state [0]: {
+  [LDecs ::= (*) Declaracion , {SEPARADOR PYCOMA }]
+  [DecTipo ::= (*) TIPO DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DecFun ::= (*) FUN Cabecera Programa END IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [Decs ::= (*) , {SEPARADOR }]
+  [Declaracion ::= (*) DecFun , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+  [$START ::= (*) Programa EOF , {EOF }]
+  [Declaracion ::= (*) DecVariable , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [LDecs ::= (*) LDecs PYCOMA Declaracion , {SEPARADOR PYCOMA }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [Decs ::= (*) LDecs , {SEPARADOR }]
+  [Declaracion ::= (*) DecTipo , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [Programa ::= (*) Decs SEPARADOR Instrucciones , {EOF }]
+}
+transition on FUN to state [20]
+transition on DecFun to state [19]
+transition on REAL to state [18]
+transition on DTipoObjeto to state [17]
+transition on DTipo0 to state [16]
+transition on DTipo1 to state [15]
+transition on IDENTIFICADOR to state [14]
+transition on POINTER to state [13]
+transition on Declaracion to state [12]
+transition on DTipoPuntero to state [11]
+transition on DecVariable to state [10]
+transition on OBJECT to state [9]
+transition on TIPO to state [8]
+transition on Programa to state [7]
+transition on REC to state [6]
+transition on DecTipo to state [5]
+transition on Decs to state [4]
+transition on INT to state [3]
+transition on LDecs to state [2]
+transition on DTipoRegistro to state [1]
+
+-------------------
+lalr_state [1]: {
+  [DTipo1 ::= DTipoRegistro (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [2]: {
+  [Decs ::= LDecs (*) , {SEPARADOR }]
+  [LDecs ::= LDecs (*) PYCOMA Declaracion , {SEPARADOR PYCOMA }]
+}
+transition on PYCOMA to state [172]
+
+-------------------
+lalr_state [3]: {
+  [DTipo1 ::= INT (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [4]: {
+  [Programa ::= Decs (*) SEPARADOR Instrucciones , {EOF END }]
+}
+transition on SEPARADOR to state [68]
+
+-------------------
+lalr_state [5]: {
+  [Declaracion ::= DecTipo (*) , {SEPARADOR PYCOMA }]
+}
+
+-------------------
+lalr_state [6]: {
+  [LCampos ::= (*) LCampos PYCOMA DecVariable , {PYCOMA ENDREC }]
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [DTipoRegistro ::= REC (*) LCampos ENDREC , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [LCampos ::= (*) DecVariable , {PYCOMA ENDREC }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {PYCOMA ENDREC }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+}
+transition on DTipoObjeto to state [17]
+transition on IDENTIFICADOR to state [14]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on LCampos to state [64]
+transition on DTipo0 to state [16]
+transition on DTipo1 to state [15]
+transition on DecVariable to state [63]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [7]: {
+  [$START ::= Programa (*) EOF , {EOF }]
+}
+transition on EOF to state [62]
+
+-------------------
+lalr_state [8]: {
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [DecTipo ::= TIPO (*) DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+}
+transition on DTipoObjeto to state [17]
+transition on IDENTIFICADOR to state [14]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [60]
+transition on DTipo1 to state [15]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [9]: {
+  [Superclase ::= (*) EXTENDS IDENTIFICADOR , {INT REAL IDENTIFICADOR REC METHOD POINTER OBJECT }]
+  [DTipoObjeto ::= OBJECT (*) Superclase LCamposOMet ENDOBJECT , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [Superclase ::= (*) , {INT REAL IDENTIFICADOR REC METHOD POINTER OBJECT }]
+}
+transition on Superclase to state [46]
+transition on EXTENDS to state [45]
+
+-------------------
+lalr_state [10]: {
+  [Declaracion ::= DecVariable (*) , {SEPARADOR PYCOMA }]
+}
+
+-------------------
+lalr_state [11]: {
+  [DTipo0 ::= DTipoPuntero (*) , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [12]: {
+  [LDecs ::= Declaracion (*) , {SEPARADOR PYCOMA }]
+}
+
+-------------------
+lalr_state [13]: {
+  [DTipo1 ::= (*) DTipoObjeto , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo1 ::= (*) REAL , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo0 ::= (*) DTipoPuntero , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipoPuntero ::= POINTER (*) DTipo0 , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo1 ::= (*) DTipoRegistro , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo1 ::= (*) INT , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo0 ::= (*) DTipo1 , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+transition on DTipoObjeto to state [17]
+transition on IDENTIFICADOR to state [14]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [44]
+transition on DTipo1 to state [15]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [14]: {
+  [DTipo1 ::= IDENTIFICADOR (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [15]: {
+  [DTipo1 ::= DTipo1 (*) CAP NUMENTERO CCIERRE , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo0 ::= DTipo1 (*) , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+transition on CAP to state [41]
+
+-------------------
+lalr_state [16]: {
+  [DecVariable ::= DTipo0 (*) IDENTIFICADOR , {SEPARADOR PYCOMA ENDOBJECT ENDREC }]
+}
+transition on IDENTIFICADOR to state [40]
+
+-------------------
+lalr_state [17]: {
+  [DTipo1 ::= DTipoObjeto (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [18]: {
+  [DTipo1 ::= REAL (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [19]: {
+  [Declaracion ::= DecFun (*) , {SEPARADOR PYCOMA }]
+}
+
+-------------------
+lalr_state [20]: {
+  [Cabecera ::= (*) IDENTIFICADOR PAP Parametros PCIERRE TipoRet , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DecFun ::= FUN (*) Cabecera Programa END IDENTIFICADOR , {SEPARADOR PYCOMA }]
+}
+transition on IDENTIFICADOR to state [22]
+transition on Cabecera to state [21]
+
+-------------------
+lalr_state [21]: {
+  [LDecs ::= (*) Declaracion , {SEPARADOR PYCOMA }]
+  [DecTipo ::= (*) TIPO DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DecFun ::= FUN Cabecera (*) Programa END IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DecFun ::= (*) FUN Cabecera Programa END IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [Decs ::= (*) , {SEPARADOR }]
+  [Declaracion ::= (*) DecFun , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+  [Declaracion ::= (*) DecVariable , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [LDecs ::= (*) LDecs PYCOMA Declaracion , {SEPARADOR PYCOMA }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [Decs ::= (*) LDecs , {SEPARADOR }]
+  [Declaracion ::= (*) DecTipo , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [Programa ::= (*) Decs SEPARADOR Instrucciones , {END }]
+}
+transition on FUN to state [20]
+transition on DecFun to state [19]
+transition on REAL to state [18]
+transition on DTipoObjeto to state [17]
+transition on DTipo0 to state [16]
+transition on DTipo1 to state [15]
+transition on IDENTIFICADOR to state [14]
+transition on POINTER to state [13]
+transition on Declaracion to state [12]
+transition on DTipoPuntero to state [11]
+transition on DecVariable to state [10]
+transition on OBJECT to state [9]
+transition on TIPO to state [8]
+transition on Programa to state [37]
+transition on REC to state [6]
+transition on DecTipo to state [5]
+transition on Decs to state [4]
+transition on INT to state [3]
+transition on LDecs to state [2]
+transition on DTipoRegistro to state [1]
+
+-------------------
+lalr_state [22]: {
+  [Cabecera ::= IDENTIFICADOR (*) PAP Parametros PCIERRE TipoRet , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+}
+transition on PAP to state [23]
+
+-------------------
+lalr_state [23]: {
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR REFERENCIA }]
+  [LParametros ::= (*) LParametros COMA Parametro , {PCIERRE COMA }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR REFERENCIA }]
+  [Parametros ::= (*) LParametros , {PCIERRE }]
+  [Parametro ::= (*) DTipo0 REFERENCIA IDENTIFICADOR , {PCIERRE COMA }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR REFERENCIA }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR REFERENCIA }]
+  [LParametros ::= (*) Parametro , {PCIERRE COMA }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR REFERENCIA }]
+  [Parametros ::= (*) , {PCIERRE }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR REFERENCIA }]
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR REFERENCIA }]
+  [Cabecera ::= IDENTIFICADOR PAP (*) Parametros PCIERRE TipoRet , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [Parametro ::= (*) DTipo0 IDENTIFICADOR , {PCIERRE COMA }]
+}
+transition on IDENTIFICADOR to state [14]
+transition on DTipoObjeto to state [17]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [27]
+transition on LParametros to state [26]
+transition on Parametros to state [25]
+transition on DTipo1 to state [15]
+transition on Parametro to state [24]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [24]: {
+  [LParametros ::= Parametro (*) , {PCIERRE COMA }]
+}
+
+-------------------
+lalr_state [25]: {
+  [Cabecera ::= IDENTIFICADOR PAP Parametros (*) PCIERRE TipoRet , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+}
+transition on PCIERRE to state [33]
+
+-------------------
+lalr_state [26]: {
+  [LParametros ::= LParametros (*) COMA Parametro , {PCIERRE COMA }]
+  [Parametros ::= LParametros (*) , {PCIERRE }]
+}
+transition on COMA to state [31]
+
+-------------------
+lalr_state [27]: {
+  [Parametro ::= DTipo0 (*) REFERENCIA IDENTIFICADOR , {PCIERRE COMA }]
+  [Parametro ::= DTipo0 (*) IDENTIFICADOR , {PCIERRE COMA }]
+}
+transition on IDENTIFICADOR to state [29]
+transition on REFERENCIA to state [28]
+
+-------------------
+lalr_state [28]: {
+  [Parametro ::= DTipo0 REFERENCIA (*) IDENTIFICADOR , {PCIERRE COMA }]
+}
+transition on IDENTIFICADOR to state [30]
+
+-------------------
+lalr_state [29]: {
+  [Parametro ::= DTipo0 IDENTIFICADOR (*) , {PCIERRE COMA }]
+}
+
+-------------------
+lalr_state [30]: {
+  [Parametro ::= DTipo0 REFERENCIA IDENTIFICADOR (*) , {PCIERRE COMA }]
+}
+
+-------------------
+lalr_state [31]: {
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR REFERENCIA }]
+  [Parametro ::= (*) DTipo0 IDENTIFICADOR , {PCIERRE COMA }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR REFERENCIA }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR REFERENCIA }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR REFERENCIA }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR REFERENCIA }]
+  [LParametros ::= LParametros COMA (*) Parametro , {PCIERRE COMA }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR REFERENCIA }]
+  [Parametro ::= (*) DTipo0 REFERENCIA IDENTIFICADOR , {PCIERRE COMA }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR REFERENCIA }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR REFERENCIA }]
+}
+transition on DTipoObjeto to state [17]
+transition on IDENTIFICADOR to state [14]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [27]
+transition on DTipo1 to state [15]
+transition on Parametro to state [32]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [32]: {
+  [LParametros ::= LParametros COMA Parametro (*) , {PCIERRE COMA }]
+}
+
+-------------------
+lalr_state [33]: {
+  [TipoRet ::= (*) , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [TipoRet ::= (*) RETURNS DTipo0 , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [Cabecera ::= IDENTIFICADOR PAP Parametros PCIERRE (*) TipoRet , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+}
+transition on RETURNS to state [35]
+transition on TipoRet to state [34]
+
+-------------------
+lalr_state [34]: {
+  [Cabecera ::= IDENTIFICADOR PAP Parametros PCIERRE TipoRet (*) , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [35]: {
+  [DTipo1 ::= (*) DTipoObjeto , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipo1 ::= (*) REAL , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipo0 ::= (*) DTipoPuntero , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [TipoRet ::= RETURNS (*) DTipo0 , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipo1 ::= (*) DTipoRegistro , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipo1 ::= (*) INT , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipo0 ::= (*) DTipo1 , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN POINTER OBJECT }]
+}
+transition on DTipoObjeto to state [17]
+transition on IDENTIFICADOR to state [14]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [36]
+transition on DTipo1 to state [15]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [36]: {
+  [TipoRet ::= RETURNS DTipo0 (*) , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [37]: {
+  [DecFun ::= FUN Cabecera Programa (*) END IDENTIFICADOR , {SEPARADOR PYCOMA }]
+}
+transition on END to state [38]
+
+-------------------
+lalr_state [38]: {
+  [DecFun ::= FUN Cabecera Programa END (*) IDENTIFICADOR , {SEPARADOR PYCOMA }]
+}
+transition on IDENTIFICADOR to state [39]
+
+-------------------
+lalr_state [39]: {
+  [DecFun ::= FUN Cabecera Programa END IDENTIFICADOR (*) , {SEPARADOR PYCOMA }]
+}
+
+-------------------
+lalr_state [40]: {
+  [DecVariable ::= DTipo0 IDENTIFICADOR (*) , {SEPARADOR PYCOMA ENDOBJECT ENDREC }]
+}
+
+-------------------
+lalr_state [41]: {
+  [DTipo1 ::= DTipo1 CAP (*) NUMENTERO CCIERRE , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+transition on NUMENTERO to state [42]
+
+-------------------
+lalr_state [42]: {
+  [DTipo1 ::= DTipo1 CAP NUMENTERO (*) CCIERRE , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+transition on CCIERRE to state [43]
+
+-------------------
+lalr_state [43]: {
+  [DTipo1 ::= DTipo1 CAP NUMENTERO CCIERRE (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [44]: {
+  [DTipoPuntero ::= POINTER DTipo0 (*) , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [45]: {
+  [Superclase ::= EXTENDS (*) IDENTIFICADOR , {INT REAL IDENTIFICADOR REC METHOD POINTER OBJECT }]
+}
+transition on IDENTIFICADOR to state [59]
+
+-------------------
+lalr_state [46]: {
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DTipoObjeto ::= OBJECT Superclase (*) LCamposOMet ENDOBJECT , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+  [Campo ::= (*) DecVariable , {PYCOMA ENDOBJECT }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [LCamposOMet ::= (*) LCamposOMet PYCOMA Campo , {PYCOMA ENDOBJECT }]
+  [DecMet ::= (*) METHOD Cabecera Programa END IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [Campo ::= (*) DecMet , {PYCOMA ENDOBJECT }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [LCamposOMet ::= (*) Campo , {PYCOMA ENDOBJECT }]
+}
+transition on METHOD to state [51]
+transition on IDENTIFICADOR to state [14]
+transition on DTipoObjeto to state [17]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on Campo to state [50]
+transition on LCamposOMet to state [49]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [16]
+transition on DecMet to state [48]
+transition on DTipo1 to state [15]
+transition on DecVariable to state [47]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [47]: {
+  [Campo ::= DecVariable (*) , {PYCOMA ENDOBJECT }]
+}
+
+-------------------
+lalr_state [48]: {
+  [Campo ::= DecMet (*) , {PYCOMA ENDOBJECT }]
+}
+
+-------------------
+lalr_state [49]: {
+  [DTipoObjeto ::= OBJECT Superclase LCamposOMet (*) ENDOBJECT , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+  [LCamposOMet ::= LCamposOMet (*) PYCOMA Campo , {PYCOMA ENDOBJECT }]
+}
+transition on ENDOBJECT to state [57]
+transition on PYCOMA to state [56]
+
+-------------------
+lalr_state [50]: {
+  [LCamposOMet ::= Campo (*) , {PYCOMA ENDOBJECT }]
+}
+
+-------------------
+lalr_state [51]: {
+  [Cabecera ::= (*) IDENTIFICADOR PAP Parametros PCIERRE TipoRet , {TIPO SEPARADOR INT REAL IDENTIFICADOR REC FUN POINTER OBJECT }]
+  [DecMet ::= METHOD (*) Cabecera Programa END IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+}
+transition on IDENTIFICADOR to state [22]
+transition on Cabecera to state [52]
+
+-------------------
+lalr_state [52]: {
+  [LDecs ::= (*) Declaracion , {SEPARADOR PYCOMA }]
+  [DecTipo ::= (*) TIPO DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DecFun ::= (*) FUN Cabecera Programa END IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [Decs ::= (*) , {SEPARADOR }]
+  [Declaracion ::= (*) DecFun , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+  [Declaracion ::= (*) DecVariable , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [DecMet ::= METHOD Cabecera (*) Programa END IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+  [LDecs ::= (*) LDecs PYCOMA Declaracion , {SEPARADOR PYCOMA }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [Decs ::= (*) LDecs , {SEPARADOR }]
+  [Declaracion ::= (*) DecTipo , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [Programa ::= (*) Decs SEPARADOR Instrucciones , {END }]
+}
+transition on FUN to state [20]
+transition on DecFun to state [19]
+transition on REAL to state [18]
+transition on DTipoObjeto to state [17]
+transition on DTipo0 to state [16]
+transition on DTipo1 to state [15]
+transition on IDENTIFICADOR to state [14]
+transition on POINTER to state [13]
+transition on Declaracion to state [12]
+transition on DTipoPuntero to state [11]
+transition on DecVariable to state [10]
+transition on OBJECT to state [9]
+transition on TIPO to state [8]
+transition on Programa to state [53]
+transition on REC to state [6]
+transition on DecTipo to state [5]
+transition on Decs to state [4]
+transition on INT to state [3]
+transition on LDecs to state [2]
+transition on DTipoRegistro to state [1]
+
+-------------------
+lalr_state [53]: {
+  [DecMet ::= METHOD Cabecera Programa (*) END IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+}
+transition on END to state [54]
+
+-------------------
+lalr_state [54]: {
+  [DecMet ::= METHOD Cabecera Programa END (*) IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+}
+transition on IDENTIFICADOR to state [55]
+
+-------------------
+lalr_state [55]: {
+  [DecMet ::= METHOD Cabecera Programa END IDENTIFICADOR (*) , {PYCOMA ENDOBJECT }]
+}
+
+-------------------
+lalr_state [56]: {
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DecMet ::= (*) METHOD Cabecera Programa END IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+  [Campo ::= (*) DecVariable , {PYCOMA ENDOBJECT }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {PYCOMA ENDOBJECT }]
+  [LCamposOMet ::= LCamposOMet PYCOMA (*) Campo , {PYCOMA ENDOBJECT }]
+  [Campo ::= (*) DecMet , {PYCOMA ENDOBJECT }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+}
+transition on METHOD to state [51]
+transition on DTipoObjeto to state [17]
+transition on IDENTIFICADOR to state [14]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on Campo to state [58]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [16]
+transition on DecMet to state [48]
+transition on DTipo1 to state [15]
+transition on DecVariable to state [47]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [57]: {
+  [DTipoObjeto ::= OBJECT Superclase LCamposOMet ENDOBJECT (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [58]: {
+  [LCamposOMet ::= LCamposOMet PYCOMA Campo (*) , {PYCOMA ENDOBJECT }]
+}
+
+-------------------
+lalr_state [59]: {
+  [Superclase ::= EXTENDS IDENTIFICADOR (*) , {INT REAL IDENTIFICADOR REC METHOD POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [60]: {
+  [DecTipo ::= TIPO DTipo0 (*) IDENTIFICADOR , {SEPARADOR PYCOMA }]
+}
+transition on IDENTIFICADOR to state [61]
+
+-------------------
+lalr_state [61]: {
+  [DecTipo ::= TIPO DTipo0 IDENTIFICADOR (*) , {SEPARADOR PYCOMA }]
+}
+
+-------------------
+lalr_state [62]: {
+  [$START ::= Programa EOF (*) , {EOF }]
+}
+
+-------------------
+lalr_state [63]: {
+  [LCampos ::= DecVariable (*) , {PYCOMA ENDREC }]
+}
+
+-------------------
+lalr_state [64]: {
+  [LCampos ::= LCampos (*) PYCOMA DecVariable , {PYCOMA ENDREC }]
+  [DTipoRegistro ::= REC LCampos (*) ENDREC , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+transition on PYCOMA to state [66]
+transition on ENDREC to state [65]
+
+-------------------
+lalr_state [65]: {
+  [DTipoRegistro ::= REC LCampos ENDREC (*) , {TIPO SEPARADOR INT REAL CAP IDENTIFICADOR REC FUN REFERENCIA POINTER OBJECT }]
+}
+
+-------------------
+lalr_state [66]: {
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {PYCOMA ENDREC }]
+  [LCampos ::= LCampos PYCOMA (*) DecVariable , {PYCOMA ENDREC }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+}
+transition on DTipoObjeto to state [17]
+transition on IDENTIFICADOR to state [14]
+transition on REC to state [6]
+transition on DTipoPuntero to state [11]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [16]
+transition on DTipo1 to state [15]
+transition on DecVariable to state [67]
+transition on OBJECT to state [9]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [67]: {
+  [LCampos ::= LCampos PYCOMA DecVariable (*) , {PYCOMA ENDREC }]
+}
+
+-------------------
+lalr_state [68]: {
+  [Instrucciones ::= (*) Instruccion , {EOF PYCOMA END }]
+  [Instruccion ::= (*) IFree , {EOF PYCOMA END }]
+  [IAsig ::= (*) Designador ASIG Exp0 , {EOF PYCOMA END }]
+  [IIf ::= (*) IF Casos ParteElse ENDIF , {EOF PYCOMA END }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA END }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IOut , {EOF PYCOMA END }]
+  [Instruccion ::= (*) IReturn , {EOF PYCOMA END }]
+  [IAlloc ::= (*) ALLOC Designador , {EOF PYCOMA END }]
+  [IWhile ::= (*) WHILE Exp0 DO Is ENDWHILE , {EOF PYCOMA END }]
+  [Designador ::= (*) DesigArray , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IAsig , {EOF PYCOMA END }]
+  [Instruccion ::= (*) IIf , {EOF PYCOMA END }]
+  [IIn ::= (*) IN Designador , {EOF PYCOMA END }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instrucciones ::= (*) Instrucciones PYCOMA Instruccion , {EOF PYCOMA END }]
+  [Instruccion ::= (*) IAlloc , {EOF PYCOMA END }]
+  [Instruccion ::= (*) InvocacionFunMet , {EOF PYCOMA END }]
+  [IFree ::= (*) FREE Designador , {EOF PYCOMA END }]
+  [IReturn ::= (*) RETURN Exp0 , {EOF PYCOMA END }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IIn , {EOF PYCOMA END }]
+  [Instruccion ::= (*) IWhile , {EOF PYCOMA END }]
+  [IOut ::= (*) OUT Designador , {EOF PYCOMA END }]
+  [Programa ::= Decs SEPARADOR (*) Instrucciones , {EOF END }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PUNTO APOSTROFE ASIG }]
+}
+transition on IReturn to state [94]
+transition on IOut to state [93]
+transition on ALLOC to state [92]
+transition on IAsig to state [91]
+transition on IIn to state [90]
+transition on SUPER to state [89]
+transition on Instrucciones to state [88]
+transition on OUT to state [87]
+transition on FREE to state [86]
+transition on IFree to state [85]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on DesigAtributo to state [82]
+transition on IWhile to state [81]
+transition on DesigPuntero to state [80]
+transition on Instruccion to state [79]
+transition on THIS to state [78]
+transition on IAlloc to state [77]
+transition on IF to state [76]
+transition on RETURN to state [75]
+transition on OtroDesignador to state [74]
+transition on WHILE to state [73]
+transition on IN to state [72]
+transition on Designador to state [71]
+transition on InvocacionFunMet to state [70]
+transition on IIf to state [69]
+
+-------------------
+lalr_state [69]: {
+  [Instruccion ::= IIf (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [70]: {
+  [Instruccion ::= InvocacionFunMet (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [71]: {
+  [DesigAtributo ::= Designador (*) PUNTO IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [IAsig ::= Designador (*) ASIG Exp0 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= Designador (*) CAP Exp0 CCIERRE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [InvocacionFunMet ::= Designador (*) PAP ParamsInvoc PCIERRE , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= Designador (*) APOSTROFE , {CAP PAP PUNTO APOSTROFE ASIG }]
+}
+transition on ASIG to state [170]
+transition on PAP to state [141]
+transition on APOSTROFE to state [98]
+transition on PUNTO to state [97]
+transition on CAP to state [96]
+
+-------------------
+lalr_state [72]: {
+  [IIn ::= IN (*) Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on Designador to state [169]
+transition on OtroDesignador to state [74]
+transition on IDENTIFICADOR to state [83]
+transition on DesigArray to state [84]
+transition on SUPER to state [89]
+
+-------------------
+lalr_state [73]: {
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {DO }]
+  [Exp2 ::= (*) Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Exp4 ::= (*) NUMREAL , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [IWhile ::= WHILE (*) Exp0 DO Is ENDWHILE , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Exp1 ::= (*) Exp2 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS DO }]
+  [Exp3 ::= (*) Exp4 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Designador ::= (*) DesigArray , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Exp4 ::= (*) InvocacionFunMet , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {DO }]
+  [Exp3 ::= (*) Op3 Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Exp4 ::= (*) Designador , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Exp4 ::= (*) NUMENTERO , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS DO }]
+  [Exp3 ::= (*) Op3NA Exp4 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [Exp4 ::= (*) NULL , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND DO }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [165]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [74]: {
+  [Designador ::= OtroDesignador (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [75]: {
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Exp2 ::= (*) Exp3 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) NUMREAL , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS ELSIF ENDIF ENDWHILE }]
+  [Exp3 ::= (*) Exp4 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) InvocacionFunMet , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Exp3 ::= (*) Op3 Exp3 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) Designador , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [IReturn ::= RETURN (*) Exp0 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) NUMENTERO , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS ELSIF ENDIF ENDWHILE }]
+  [Exp3 ::= (*) Op3NA Exp4 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) NULL , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [164]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [76]: {
+  [IIf ::= IF (*) Casos ParteElse ENDIF , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Caso ::= (*) Exp0 THEN Is , {ELSE ELSIF ENDIF }]
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {THEN }]
+  [Exp2 ::= (*) Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) NUMREAL , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Casos ::= (*) Casos ELSIF Caso , {ELSE ELSIF ENDIF }]
+  [Exp1 ::= (*) Exp2 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN }]
+  [Exp3 ::= (*) Exp4 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) DesigArray , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) InvocacionFunMet , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {THEN }]
+  [Exp3 ::= (*) Op3 Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) Designador , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Casos ::= (*) Caso , {ELSE ELSIF ENDIF }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) NUMENTERO , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN }]
+  [Exp3 ::= (*) Op3NA Exp4 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) NULL , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [154]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Casos to state [153]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on Caso to state [152]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [77]: {
+  [Instruccion ::= IAlloc (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [78]: {
+  [OtroDesignador ::= THIS (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [79]: {
+  [Instrucciones ::= Instruccion (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [80]: {
+  [Designador ::= DesigPuntero (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [81]: {
+  [Instruccion ::= IWhile (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [82]: {
+  [Designador ::= DesigAtributo (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [83]: {
+  [Designador ::= IDENTIFICADOR (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [84]: {
+  [Designador ::= DesigArray (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [85]: {
+  [Instruccion ::= IFree (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [86]: {
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [IFree ::= FREE (*) Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on Designador to state [151]
+transition on OtroDesignador to state [74]
+transition on IDENTIFICADOR to state [83]
+transition on DesigArray to state [84]
+transition on SUPER to state [89]
+
+-------------------
+lalr_state [87]: {
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [IOut ::= OUT (*) Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on Designador to state [150]
+transition on OtroDesignador to state [74]
+transition on IDENTIFICADOR to state [83]
+transition on DesigArray to state [84]
+transition on SUPER to state [89]
+
+-------------------
+lalr_state [88]: {
+  [Instrucciones ::= Instrucciones (*) PYCOMA Instruccion , {EOF PYCOMA END }]
+  [Programa ::= Decs SEPARADOR Instrucciones (*) , {EOF END }]
+}
+transition on PYCOMA to state [148]
+
+-------------------
+lalr_state [89]: {
+  [OtroDesignador ::= SUPER (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [90]: {
+  [Instruccion ::= IIn (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [91]: {
+  [Instruccion ::= IAsig (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [92]: {
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [IAlloc ::= ALLOC (*) Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on Designador to state [95]
+transition on OtroDesignador to state [74]
+transition on IDENTIFICADOR to state [83]
+transition on DesigArray to state [84]
+transition on SUPER to state [89]
+
+-------------------
+lalr_state [93]: {
+  [Instruccion ::= IOut (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [94]: {
+  [Instruccion ::= IReturn (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [95]: {
+  [DesigAtributo ::= Designador (*) PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [IAlloc ::= ALLOC Designador (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= Designador (*) CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= Designador (*) APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on APOSTROFE to state [98]
+transition on PUNTO to state [97]
+transition on CAP to state [96]
+
+-------------------
+lalr_state [96]: {
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {CCIERRE }]
+  [Exp2 ::= (*) Exp3 , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) NUMREAL , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) DesigPuntero , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS }]
+  [Exp3 ::= (*) Exp4 , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [DesigArray ::= Designador CAP (*) Exp0 CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+  [Designador ::= (*) DesigArray , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) InvocacionFunMet , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {CCIERRE }]
+  [Exp3 ::= (*) Op3 Exp3 , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) Designador , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [OtroDesignador ::= (*) THIS , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) NUMENTERO , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) DesigAtributo , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS }]
+  [Exp3 ::= (*) Op3NA Exp4 , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) OtroDesignador , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) NULL , {CCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [OtroDesignador ::= (*) SUPER , {CAP CCIERRE PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [113]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [97]: {
+  [DesigAtributo ::= Designador PUNTO (*) IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+transition on IDENTIFICADOR to state [99]
+
+-------------------
+lalr_state [98]: {
+  [DesigPuntero ::= Designador APOSTROFE (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [99]: {
+  [DesigAtributo ::= Designador PUNTO IDENTIFICADOR (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [100]: {
+  [Op3NA ::= CASTREAL (*) , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+}
+
+-------------------
+lalr_state [101]: {
+  [Op3 ::= MENOS (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [102]: {
+  [Exp4 ::= InvocacionFunMet (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [103]: {
+  [DesigAtributo ::= Designador (*) PUNTO IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigArray ::= Designador (*) CAP Exp0 CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [InvocacionFunMet ::= Designador (*) PAP ParamsInvoc PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigPuntero ::= Designador (*) APOSTROFE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= Designador (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on PAP to state [141]
+transition on APOSTROFE to state [98]
+transition on PUNTO to state [97]
+transition on CAP to state [96]
+
+-------------------
+lalr_state [104]: {
+  [Op3 ::= NOT (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [105]: {
+  [Exp4 ::= NUMENTERO (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [106]: {
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {PCIERRE }]
+  [Exp2 ::= (*) Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) NUMREAL , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS }]
+  [Exp3 ::= (*) Exp4 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) DesigArray , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) InvocacionFunMet , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {PCIERRE }]
+  [Exp3 ::= (*) Op3 Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) Designador , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= PAP (*) Exp0 PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NUMENTERO , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS }]
+  [Exp3 ::= (*) Op3NA Exp4 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [Exp4 ::= (*) NULL , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [139]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [107]: {
+  [Exp3 ::= Exp4 (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [108]: {
+  [Exp4 ::= NUMREAL (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [109]: {
+  [Exp2 ::= Exp3 (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [110]: {
+  [Op2 ::= (*) DIV , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op2 ::= (*) AND , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op2 ::= (*) POR , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp2 ::= Exp2 (*) Op2 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op2 ::= (*) MOD , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= Exp2 (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN ELSIF ENDIF DO ENDWHILE COMA }]
+}
+transition on POR to state [137]
+transition on DIV to state [136]
+transition on AND to state [135]
+transition on MOD to state [134]
+transition on Op2 to state [133]
+
+-------------------
+lalr_state [111]: {
+  [Exp0 ::= Exp1 (*) Op0NA Exp1 , {EOF PYCOMA CCIERRE END PCIERRE ELSE THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Op1 ::= (*) OR , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op0NA ::= (*) MAYORIGUAL , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op0NA ::= (*) MENOR , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op1 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= Exp1 (*) Op1 Exp2 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Op0NA ::= (*) DISTINTO , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op0NA ::= (*) MENORIGUAL , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= Exp1 (*) , {EOF PYCOMA CCIERRE END PCIERRE ELSE THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Op1 ::= (*) MAS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op0NA ::= (*) IGUAL , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op0NA ::= (*) MAYOR , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+transition on OR to state [130]
+transition on DISTINTO to state [129]
+transition on IGUAL to state [128]
+transition on MAYOR to state [127]
+transition on MAYORIGUAL to state [126]
+transition on MAS to state [125]
+transition on Op0NA to state [124]
+transition on MENOR to state [123]
+transition on MENOS to state [122]
+transition on Op1 to state [121]
+transition on MENORIGUAL to state [120]
+
+-------------------
+lalr_state [112]: {
+  [Exp4 ::= (*) NUMREAL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp3 ::= (*) Exp4 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) InvocacionFunMet , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp3 ::= Op3 (*) Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp3 ::= (*) Op3 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) Designador , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp4 ::= (*) NUMENTERO , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp3 ::= (*) Op3NA Exp4 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NULL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp3 to state [119]
+transition on PAP to state [106]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [113]: {
+  [DesigArray ::= Designador CAP Exp0 (*) CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+transition on CCIERRE to state [118]
+
+-------------------
+lalr_state [114]: {
+  [Exp4 ::= (*) NUMREAL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) InvocacionFunMet , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) Designador , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NUMENTERO , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp3 ::= Op3NA (*) Exp4 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NULL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on IDENTIFICADOR to state [83]
+transition on DesigAtributo to state [82]
+transition on Exp4 to state [117]
+transition on DesigArray to state [84]
+transition on NUMENTERO to state [105]
+transition on DesigPuntero to state [80]
+transition on Designador to state [103]
+transition on THIS to state [78]
+transition on InvocacionFunMet to state [102]
+transition on SUPER to state [89]
+transition on NUMREAL to state [108]
+transition on NULL to state [116]
+transition on PAP to state [106]
+transition on OtroDesignador to state [74]
+
+-------------------
+lalr_state [115]: {
+  [Op3NA ::= CASTINT (*) , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+}
+
+-------------------
+lalr_state [116]: {
+  [Exp4 ::= NULL (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [117]: {
+  [Exp3 ::= Op3NA Exp4 (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [118]: {
+  [DesigArray ::= Designador CAP Exp0 CCIERRE (*) , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA ASIG }]
+}
+
+-------------------
+lalr_state [119]: {
+  [Exp3 ::= Op3 Exp3 (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [120]: {
+  [Op0NA ::= MENORIGUAL (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [121]: {
+  [Exp2 ::= (*) Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NUMREAL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp3 ::= (*) Exp4 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) InvocacionFunMet , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp3 ::= (*) Op3 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) Designador , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NUMENTERO , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= Exp1 Op1 (*) Exp2 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Exp3 ::= (*) Op3NA Exp4 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NULL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp2 to state [132]
+transition on Exp3 to state [109]
+transition on PAP to state [106]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [122]: {
+  [Op1 ::= MENOS (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [123]: {
+  [Op0NA ::= MENOR (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [124]: {
+  [Exp0 ::= Exp1 Op0NA (*) Exp1 , {EOF PYCOMA CCIERRE END PCIERRE ELSE THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Exp2 ::= (*) Exp3 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NUMREAL , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Exp3 ::= (*) Exp4 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) InvocacionFunMet , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp3 ::= (*) Op3 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) Designador , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NUMENTERO , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Exp3 ::= (*) Op3NA Exp4 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NULL , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE PUNTO APOSTROFE OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [131]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [125]: {
+  [Op1 ::= MAS (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [126]: {
+  [Op0NA ::= MAYORIGUAL (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [127]: {
+  [Op0NA ::= MAYOR (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [128]: {
+  [Op0NA ::= IGUAL (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [129]: {
+  [Op0NA ::= DISTINTO (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [130]: {
+  [Op1 ::= OR (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [131]: {
+  [Op1 ::= (*) MAS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= Exp1 (*) Op1 Exp2 , {EOF PYCOMA CCIERRE END PCIERRE OR ELSE MAS MENOS THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Op1 ::= (*) OR , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= Exp1 Op0NA Exp1 (*) , {EOF PYCOMA CCIERRE END PCIERRE ELSE THEN ELSIF ENDIF DO ENDWHILE COMA }]
+  [Op1 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+transition on OR to state [130]
+transition on MENOS to state [122]
+transition on MAS to state [125]
+transition on Op1 to state [121]
+
+-------------------
+lalr_state [132]: {
+  [Op2 ::= (*) DIV , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op2 ::= (*) AND , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Op2 ::= (*) POR , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp2 ::= Exp2 (*) Op2 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op2 ::= (*) MOD , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= Exp1 Op1 Exp2 (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN ELSIF ENDIF DO ENDWHILE COMA }]
+}
+transition on POR to state [137]
+transition on DIV to state [136]
+transition on AND to state [135]
+transition on MOD to state [134]
+transition on Op2 to state [133]
+
+-------------------
+lalr_state [133]: {
+  [Exp4 ::= (*) NUMREAL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp3 ::= (*) Exp4 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) InvocacionFunMet , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp3 ::= (*) Op3 Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) Designador , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= Exp2 Op2 (*) Exp3 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NUMENTERO , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp3 ::= (*) Op3NA Exp4 , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp4 ::= (*) NULL , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP CCIERRE END PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp3 to state [138]
+transition on PAP to state [106]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [134]: {
+  [Op2 ::= MOD (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [135]: {
+  [Op2 ::= AND (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [136]: {
+  [Op2 ::= DIV (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [137]: {
+  [Op2 ::= POR (*) , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+}
+
+-------------------
+lalr_state [138]: {
+  [Exp2 ::= Exp2 Op2 Exp3 (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [139]: {
+  [Exp4 ::= PAP Exp0 (*) PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on PCIERRE to state [140]
+
+-------------------
+lalr_state [140]: {
+  [Exp4 ::= PAP Exp0 PCIERRE (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [141]: {
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {PCIERRE COMA }]
+  [InvocacionFunMet ::= Designador PAP (*) ParamsInvoc PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+  [Exp2 ::= (*) Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) NUMREAL , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS COMA }]
+  [Exp3 ::= (*) Exp4 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) DesigArray , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) InvocacionFunMet , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [LParamsInvoc ::= (*) LParamsInvoc COMA Exp0 , {PCIERRE COMA }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {PCIERRE COMA }]
+  [Exp3 ::= (*) Op3 Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) Designador , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [ParamsInvoc ::= (*) LParamsInvoc , {PCIERRE }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) NUMENTERO , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [LParamsInvoc ::= (*) Exp0 , {PCIERRE COMA }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS COMA }]
+  [Exp3 ::= (*) Op3NA Exp4 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) NULL , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [ParamsInvoc ::= (*) , {PCIERRE }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Exp0 to state [144]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on LParamsInvoc to state [143]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on ParamsInvoc to state [142]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [142]: {
+  [InvocacionFunMet ::= Designador PAP ParamsInvoc (*) PCIERRE , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+transition on PCIERRE to state [147]
+
+-------------------
+lalr_state [143]: {
+  [ParamsInvoc ::= LParamsInvoc (*) , {PCIERRE }]
+  [LParamsInvoc ::= LParamsInvoc (*) COMA Exp0 , {PCIERRE COMA }]
+}
+transition on COMA to state [145]
+
+-------------------
+lalr_state [144]: {
+  [LParamsInvoc ::= Exp0 (*) , {PCIERRE COMA }]
+}
+
+-------------------
+lalr_state [145]: {
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {PCIERRE COMA }]
+  [Exp2 ::= (*) Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) NUMREAL , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS COMA }]
+  [LParamsInvoc ::= LParamsInvoc COMA (*) Exp0 , {PCIERRE COMA }]
+  [Exp3 ::= (*) Exp4 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) DesigArray , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) InvocacionFunMet , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {PCIERRE COMA }]
+  [Exp3 ::= (*) Op3 Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) Designador , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) NUMENTERO , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS COMA }]
+  [Exp3 ::= (*) Op3NA Exp4 , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [Exp4 ::= (*) NULL , {PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PCIERRE MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS POR DIV MOD AND COMA }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [146]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [146]: {
+  [LParamsInvoc ::= LParamsInvoc COMA Exp0 (*) , {PCIERRE COMA }]
+}
+
+-------------------
+lalr_state [147]: {
+  [InvocacionFunMet ::= Designador PAP ParamsInvoc PCIERRE (*) , {EOF PYCOMA CCIERRE END PCIERRE MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS THEN POR ELSIF DIV ENDIF MOD AND DO ENDWHILE COMA }]
+}
+
+-------------------
+lalr_state [148]: {
+  [Instruccion ::= (*) IFree , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IAsig ::= (*) Designador ASIG Exp0 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IIf ::= (*) IF Casos ParteElse ENDIF , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IOut , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Instruccion ::= (*) IReturn , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IAlloc ::= (*) ALLOC Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IWhile ::= (*) WHILE Exp0 DO Is ENDWHILE , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigArray , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IAsig , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Instruccion ::= (*) IIf , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IIn ::= (*) IN Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instrucciones ::= Instrucciones PYCOMA (*) Instruccion , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IAlloc , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Instruccion ::= (*) InvocacionFunMet , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IFree ::= (*) FREE Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IReturn ::= (*) RETURN Exp0 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IIn , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Instruccion ::= (*) IWhile , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [IOut ::= (*) OUT Designador , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PUNTO APOSTROFE ASIG }]
+}
+transition on IReturn to state [94]
+transition on IOut to state [93]
+transition on ALLOC to state [92]
+transition on IAsig to state [91]
+transition on IIn to state [90]
+transition on SUPER to state [89]
+transition on OUT to state [87]
+transition on FREE to state [86]
+transition on IFree to state [85]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on DesigAtributo to state [82]
+transition on IWhile to state [81]
+transition on DesigPuntero to state [80]
+transition on Instruccion to state [149]
+transition on THIS to state [78]
+transition on IAlloc to state [77]
+transition on IF to state [76]
+transition on RETURN to state [75]
+transition on OtroDesignador to state [74]
+transition on WHILE to state [73]
+transition on IN to state [72]
+transition on Designador to state [71]
+transition on InvocacionFunMet to state [70]
+transition on IIf to state [69]
+
+-------------------
+lalr_state [149]: {
+  [Instrucciones ::= Instrucciones PYCOMA Instruccion (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [150]: {
+  [DesigAtributo ::= Designador (*) PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= Designador (*) CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [IOut ::= OUT Designador (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= Designador (*) APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on APOSTROFE to state [98]
+transition on PUNTO to state [97]
+transition on CAP to state [96]
+
+-------------------
+lalr_state [151]: {
+  [DesigAtributo ::= Designador (*) PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= Designador (*) CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= Designador (*) APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [IFree ::= FREE Designador (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on APOSTROFE to state [98]
+transition on PUNTO to state [97]
+transition on CAP to state [96]
+
+-------------------
+lalr_state [152]: {
+  [Casos ::= Caso (*) , {ELSE ELSIF ENDIF }]
+}
+
+-------------------
+lalr_state [153]: {
+  [ParteElse ::= (*) ELSE Is , {ENDIF }]
+  [Casos ::= Casos (*) ELSIF Caso , {ELSE ELSIF ENDIF }]
+  [IIf ::= IF Casos (*) ParteElse ENDIF , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [ParteElse ::= (*) , {ENDIF }]
+}
+transition on ELSIF to state [160]
+transition on ParteElse to state [159]
+transition on ELSE to state [158]
+
+-------------------
+lalr_state [154]: {
+  [Caso ::= Exp0 (*) THEN Is , {ELSE ELSIF ENDIF }]
+}
+transition on THEN to state [155]
+
+-------------------
+lalr_state [155]: {
+  [Instrucciones ::= (*) Instruccion , {PYCOMA ELSE ELSIF ENDIF }]
+  [Instruccion ::= (*) IFree , {PYCOMA ELSE ELSIF ENDIF }]
+  [IAsig ::= (*) Designador ASIG Exp0 , {PYCOMA ELSE ELSIF ENDIF }]
+  [Caso ::= Exp0 THEN (*) Is , {ELSE ELSIF ENDIF }]
+  [IIf ::= (*) IF Casos ParteElse ENDIF , {PYCOMA ELSE ELSIF ENDIF }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {PYCOMA ELSE ELSIF ENDIF }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IOut , {PYCOMA ELSE ELSIF ENDIF }]
+  [Instruccion ::= (*) IReturn , {PYCOMA ELSE ELSIF ENDIF }]
+  [IAlloc ::= (*) ALLOC Designador , {PYCOMA ELSE ELSIF ENDIF }]
+  [IWhile ::= (*) WHILE Exp0 DO Is ENDWHILE , {PYCOMA ELSE ELSIF ENDIF }]
+  [Designador ::= (*) DesigArray , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IAsig , {PYCOMA ELSE ELSIF ENDIF }]
+  [Instruccion ::= (*) IIf , {PYCOMA ELSE ELSIF ENDIF }]
+  [IIn ::= (*) IN Designador , {PYCOMA ELSE ELSIF ENDIF }]
+  [Is ::= (*) Instrucciones , {ELSE ELSIF ENDIF }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instrucciones ::= (*) Instrucciones PYCOMA Instruccion , {PYCOMA ELSE ELSIF ENDIF }]
+  [Instruccion ::= (*) IAlloc , {PYCOMA ELSE ELSIF ENDIF }]
+  [Instruccion ::= (*) InvocacionFunMet , {PYCOMA ELSE ELSIF ENDIF }]
+  [IFree ::= (*) FREE Designador , {PYCOMA ELSE ELSIF ENDIF }]
+  [IReturn ::= (*) RETURN Exp0 , {PYCOMA ELSE ELSIF ENDIF }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IIn , {PYCOMA ELSE ELSIF ENDIF }]
+  [Instruccion ::= (*) IWhile , {PYCOMA ELSE ELSIF ENDIF }]
+  [IOut ::= (*) OUT Designador , {PYCOMA ELSE ELSIF ENDIF }]
+  [Is ::= (*) , {ELSE ELSIF ENDIF }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PUNTO APOSTROFE ASIG }]
+}
+transition on IReturn to state [94]
+transition on IOut to state [93]
+transition on ALLOC to state [92]
+transition on IAsig to state [91]
+transition on IIn to state [90]
+transition on SUPER to state [89]
+transition on Instrucciones to state [157]
+transition on OUT to state [87]
+transition on FREE to state [86]
+transition on IFree to state [85]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on DesigAtributo to state [82]
+transition on IWhile to state [81]
+transition on DesigPuntero to state [80]
+transition on Instruccion to state [79]
+transition on THIS to state [78]
+transition on Is to state [156]
+transition on IAlloc to state [77]
+transition on IF to state [76]
+transition on RETURN to state [75]
+transition on OtroDesignador to state [74]
+transition on WHILE to state [73]
+transition on IN to state [72]
+transition on Designador to state [71]
+transition on InvocacionFunMet to state [70]
+transition on IIf to state [69]
+
+-------------------
+lalr_state [156]: {
+  [Caso ::= Exp0 THEN Is (*) , {ELSE ELSIF ENDIF }]
+}
+
+-------------------
+lalr_state [157]: {
+  [Instrucciones ::= Instrucciones (*) PYCOMA Instruccion , {PYCOMA ELSE ELSIF ENDIF ENDWHILE }]
+  [Is ::= Instrucciones (*) , {ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on PYCOMA to state [148]
+
+-------------------
+lalr_state [158]: {
+  [Instrucciones ::= (*) Instruccion , {PYCOMA ENDIF }]
+  [Instruccion ::= (*) IFree , {PYCOMA ENDIF }]
+  [IAsig ::= (*) Designador ASIG Exp0 , {PYCOMA ENDIF }]
+  [IIf ::= (*) IF Casos ParteElse ENDIF , {PYCOMA ENDIF }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {PYCOMA ENDIF }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IOut , {PYCOMA ENDIF }]
+  [Instruccion ::= (*) IReturn , {PYCOMA ENDIF }]
+  [IAlloc ::= (*) ALLOC Designador , {PYCOMA ENDIF }]
+  [IWhile ::= (*) WHILE Exp0 DO Is ENDWHILE , {PYCOMA ENDIF }]
+  [Designador ::= (*) DesigArray , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IAsig , {PYCOMA ENDIF }]
+  [Instruccion ::= (*) IIf , {PYCOMA ENDIF }]
+  [ParteElse ::= ELSE (*) Is , {ENDIF }]
+  [IIn ::= (*) IN Designador , {PYCOMA ENDIF }]
+  [Is ::= (*) Instrucciones , {ENDIF }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instrucciones ::= (*) Instrucciones PYCOMA Instruccion , {PYCOMA ENDIF }]
+  [Instruccion ::= (*) IAlloc , {PYCOMA ENDIF }]
+  [Instruccion ::= (*) InvocacionFunMet , {PYCOMA ENDIF }]
+  [IFree ::= (*) FREE Designador , {PYCOMA ENDIF }]
+  [IReturn ::= (*) RETURN Exp0 , {PYCOMA ENDIF }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IIn , {PYCOMA ENDIF }]
+  [Instruccion ::= (*) IWhile , {PYCOMA ENDIF }]
+  [IOut ::= (*) OUT Designador , {PYCOMA ENDIF }]
+  [Is ::= (*) , {ENDIF }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PUNTO APOSTROFE ASIG }]
+}
+transition on IReturn to state [94]
+transition on IOut to state [93]
+transition on ALLOC to state [92]
+transition on IAsig to state [91]
+transition on IIn to state [90]
+transition on SUPER to state [89]
+transition on Instrucciones to state [157]
+transition on OUT to state [87]
+transition on FREE to state [86]
+transition on IFree to state [85]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on DesigAtributo to state [82]
+transition on IWhile to state [81]
+transition on DesigPuntero to state [80]
+transition on Instruccion to state [79]
+transition on THIS to state [78]
+transition on Is to state [163]
+transition on IAlloc to state [77]
+transition on IF to state [76]
+transition on RETURN to state [75]
+transition on OtroDesignador to state [74]
+transition on WHILE to state [73]
+transition on IN to state [72]
+transition on Designador to state [71]
+transition on InvocacionFunMet to state [70]
+transition on IIf to state [69]
+
+-------------------
+lalr_state [159]: {
+  [IIf ::= IF Casos ParteElse (*) ENDIF , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on ENDIF to state [162]
+
+-------------------
+lalr_state [160]: {
+  [Caso ::= (*) Exp0 THEN Is , {ELSE ELSIF ENDIF }]
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {THEN }]
+  [Exp2 ::= (*) Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) NUMREAL , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Casos ::= Casos ELSIF (*) Caso , {ELSE ELSIF ENDIF }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN }]
+  [Exp3 ::= (*) Exp4 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) DesigArray , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) InvocacionFunMet , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {THEN }]
+  [Exp3 ::= (*) Op3 Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) Designador , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) NUMENTERO , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN }]
+  [Exp3 ::= (*) Op3NA Exp4 , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [Exp4 ::= (*) NULL , {MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR MAS MENOS THEN POR DIV MOD AND }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [154]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on Caso to state [161]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [161]: {
+  [Casos ::= Casos ELSIF Caso (*) , {ELSE ELSIF ENDIF }]
+}
+
+-------------------
+lalr_state [162]: {
+  [IIf ::= IF Casos ParteElse ENDIF (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [163]: {
+  [ParteElse ::= ELSE Is (*) , {ENDIF }]
+}
+
+-------------------
+lalr_state [164]: {
+  [IReturn ::= RETURN Exp0 (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [165]: {
+  [IWhile ::= WHILE Exp0 (*) DO Is ENDWHILE , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on DO to state [166]
+
+-------------------
+lalr_state [166]: {
+  [Instrucciones ::= (*) Instruccion , {PYCOMA ENDWHILE }]
+  [Instruccion ::= (*) IFree , {PYCOMA ENDWHILE }]
+  [IAsig ::= (*) Designador ASIG Exp0 , {PYCOMA ENDWHILE }]
+  [IIf ::= (*) IF Casos ParteElse ENDIF , {PYCOMA ENDWHILE }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {PYCOMA ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IOut , {PYCOMA ENDWHILE }]
+  [IWhile ::= WHILE Exp0 DO (*) Is ENDWHILE , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Instruccion ::= (*) IReturn , {PYCOMA ENDWHILE }]
+  [IAlloc ::= (*) ALLOC Designador , {PYCOMA ENDWHILE }]
+  [IWhile ::= (*) WHILE Exp0 DO Is ENDWHILE , {PYCOMA ENDWHILE }]
+  [Designador ::= (*) DesigArray , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IAsig , {PYCOMA ENDWHILE }]
+  [Instruccion ::= (*) IIf , {PYCOMA ENDWHILE }]
+  [IIn ::= (*) IN Designador , {PYCOMA ENDWHILE }]
+  [Is ::= (*) Instrucciones , {ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) THIS , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instrucciones ::= (*) Instrucciones PYCOMA Instruccion , {PYCOMA ENDWHILE }]
+  [Instruccion ::= (*) IAlloc , {PYCOMA ENDWHILE }]
+  [Instruccion ::= (*) InvocacionFunMet , {PYCOMA ENDWHILE }]
+  [IFree ::= (*) FREE Designador , {PYCOMA ENDWHILE }]
+  [IReturn ::= (*) RETURN Exp0 , {PYCOMA ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [Instruccion ::= (*) IIn , {PYCOMA ENDWHILE }]
+  [Instruccion ::= (*) IWhile , {PYCOMA ENDWHILE }]
+  [IOut ::= (*) OUT Designador , {PYCOMA ENDWHILE }]
+  [Is ::= (*) , {ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {CAP PAP PUNTO APOSTROFE ASIG }]
+  [OtroDesignador ::= (*) SUPER , {CAP PAP PUNTO APOSTROFE ASIG }]
+}
+transition on IReturn to state [94]
+transition on IOut to state [93]
+transition on ALLOC to state [92]
+transition on IAsig to state [91]
+transition on IIn to state [90]
+transition on SUPER to state [89]
+transition on Instrucciones to state [157]
+transition on OUT to state [87]
+transition on FREE to state [86]
+transition on IFree to state [85]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on DesigAtributo to state [82]
+transition on IWhile to state [81]
+transition on DesigPuntero to state [80]
+transition on Instruccion to state [79]
+transition on THIS to state [78]
+transition on Is to state [167]
+transition on IAlloc to state [77]
+transition on IF to state [76]
+transition on RETURN to state [75]
+transition on OtroDesignador to state [74]
+transition on WHILE to state [73]
+transition on IN to state [72]
+transition on Designador to state [71]
+transition on InvocacionFunMet to state [70]
+transition on IIf to state [69]
+
+-------------------
+lalr_state [167]: {
+  [IWhile ::= WHILE Exp0 DO Is (*) ENDWHILE , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on ENDWHILE to state [168]
+
+-------------------
+lalr_state [168]: {
+  [IWhile ::= WHILE Exp0 DO Is ENDWHILE (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [169]: {
+  [DesigAtributo ::= Designador (*) PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigArray ::= Designador (*) CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [DesigPuntero ::= Designador (*) APOSTROFE , {EOF PYCOMA CAP END PUNTO APOSTROFE ELSE ELSIF ENDIF ENDWHILE }]
+  [IIn ::= IN Designador (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+transition on APOSTROFE to state [98]
+transition on PUNTO to state [97]
+transition on CAP to state [96]
+
+-------------------
+lalr_state [170]: {
+  [IAsig ::= Designador ASIG (*) Exp0 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Exp0 ::= (*) Exp1 Op0NA Exp1 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Exp2 ::= (*) Exp3 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) NUMREAL , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [InvocacionFunMet ::= (*) Designador PAP ParamsInvoc PCIERRE , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) DesigPuntero , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [DesigPuntero ::= (*) Designador APOSTROFE , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3NA ::= (*) CASTINT , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp1 ::= (*) Exp2 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS ELSIF ENDIF ENDWHILE }]
+  [Exp3 ::= (*) Exp4 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) DesigArray , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) InvocacionFunMet , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [DesigArray ::= (*) Designador CAP Exp0 CCIERRE , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3 ::= (*) MENOS , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp0 ::= (*) Exp1 , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+  [Exp3 ::= (*) Op3 Exp3 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) IDENTIFICADOR , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) Designador , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [OtroDesignador ::= (*) THIS , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3NA ::= (*) CASTREAL , {IDENTIFICADOR PAP THIS SUPER NULL NUMENTERO NUMREAL }]
+  [Exp2 ::= (*) Exp2 Op2 Exp3 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) NUMENTERO , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) DesigAtributo , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) PAP Exp0 PCIERRE , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [DesigAtributo ::= (*) Designador PUNTO IDENTIFICADOR , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Op3 ::= (*) NOT , {IDENTIFICADOR PAP THIS SUPER MENOS NOT NULL NUMENTERO NUMREAL CASTREAL CASTINT }]
+  [Exp1 ::= (*) Exp1 Op1 Exp2 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS ELSIF ENDIF ENDWHILE }]
+  [Exp3 ::= (*) Op3NA Exp4 , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Designador ::= (*) OtroDesignador , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [Exp4 ::= (*) NULL , {EOF PYCOMA END MENORIGUAL MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+  [OtroDesignador ::= (*) SUPER , {EOF PYCOMA CAP END PAP MENORIGUAL PUNTO APOSTROFE MENOR MAYOR MAYORIGUAL IGUAL DISTINTO OR ELSE MAS MENOS POR ELSIF DIV ENDIF MOD AND ENDWHILE }]
+}
+transition on NULL to state [116]
+transition on SUPER to state [89]
+transition on CASTINT to state [115]
+transition on Op3NA to state [114]
+transition on Exp0 to state [171]
+transition on DesigArray to state [84]
+transition on IDENTIFICADOR to state [83]
+transition on Op3 to state [112]
+transition on Exp1 to state [111]
+transition on Exp2 to state [110]
+transition on Exp3 to state [109]
+transition on NUMREAL to state [108]
+transition on Exp4 to state [107]
+transition on PAP to state [106]
+transition on DesigAtributo to state [82]
+transition on DesigPuntero to state [80]
+transition on THIS to state [78]
+transition on NUMENTERO to state [105]
+transition on NOT to state [104]
+transition on OtroDesignador to state [74]
+transition on Designador to state [103]
+transition on InvocacionFunMet to state [102]
+transition on MENOS to state [101]
+transition on CASTREAL to state [100]
+
+-------------------
+lalr_state [171]: {
+  [IAsig ::= Designador ASIG Exp0 (*) , {EOF PYCOMA END ELSE ELSIF ENDIF ENDWHILE }]
+}
+
+-------------------
+lalr_state [172]: {
+  [DecTipo ::= (*) TIPO DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) IDENTIFICADOR , {CAP IDENTIFICADOR }]
+  [DecFun ::= (*) FUN Cabecera Programa END IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [Declaracion ::= (*) DecFun , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) INT , {CAP IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipo1 CAP NUMENTERO CCIERRE , {CAP IDENTIFICADOR }]
+  [DTipoObjeto ::= (*) OBJECT Superclase LCamposOMet ENDOBJECT , {CAP IDENTIFICADOR }]
+  [Declaracion ::= (*) DecVariable , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipoPuntero , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoRegistro , {CAP IDENTIFICADOR }]
+  [LDecs ::= LDecs PYCOMA (*) Declaracion , {SEPARADOR PYCOMA }]
+  [DecVariable ::= (*) DTipo0 IDENTIFICADOR , {SEPARADOR PYCOMA }]
+  [DTipo1 ::= (*) REAL , {CAP IDENTIFICADOR }]
+  [DTipoRegistro ::= (*) REC LCampos ENDREC , {CAP IDENTIFICADOR }]
+  [Declaracion ::= (*) DecTipo , {SEPARADOR PYCOMA }]
+  [DTipo0 ::= (*) DTipo1 , {IDENTIFICADOR }]
+  [DTipo1 ::= (*) DTipoObjeto , {CAP IDENTIFICADOR }]
+  [DTipoPuntero ::= (*) POINTER DTipo0 , {IDENTIFICADOR }]
+}
+transition on IDENTIFICADOR to state [14]
+transition on DTipoObjeto to state [17]
+transition on REC to state [6]
+transition on DecFun to state [19]
+transition on Declaracion to state [173]
+transition on DTipoPuntero to state [11]
+transition on TIPO to state [8]
+transition on REAL to state [18]
+transition on POINTER to state [13]
+transition on DTipo0 to state [16]
+transition on DTipo1 to state [15]
+transition on DecVariable to state [10]
+transition on DecTipo to state [5]
+transition on OBJECT to state [9]
+transition on FUN to state [20]
+transition on DTipoRegistro to state [1]
+transition on INT to state [3]
+
+-------------------
+lalr_state [173]: {
+  [LDecs ::= LDecs PYCOMA Declaracion (*) , {SEPARADOR PYCOMA }]
+}
+
+-------------------
+------- CUP v0.11b beta 20140220 Parser Generation Summary -------
+  0 errors and 0 warnings
+  61 terminals, 54 non-terminals, and 114 productions declared, 
+  producing 174 unique parse states.
+  0 terminals declared but not used.
+  0 non-terminals declared but not used.
+  0 productions never reduced.
+  0 conflicts detected (0 expected).
+  Code written to "AnalizadorSintactico.java", and "ClaseLexica.java".
+---------------------------------------------------- (v0.11b beta 20140220)

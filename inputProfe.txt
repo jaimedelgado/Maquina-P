@@ -1,0 +1,55 @@
+object int x endobject Superclase;
+tipo
+  object extends Superclase
+         int c0;
+		 real c1;
+         method m(rec int x; int y endrec p1, int & p2, unTipo p3)
+           #
+           x = x+y
+         end m;
+         pointer rec
+                  int c3; 		 
+				  int[10] c4
+                 endrec  c2
+   endobject[60] tipocomplejo;
+pointer Superclase x2;
+
+fun f()
+  fun f2(int x) returns int
+   int y
+  #
+   return x+1
+  end f2    
+#
+  x=x+1
+end f
+
+#
+  
+  x^.u[20]^.f(x,y+8);
+  x = this.x + super.f(56,7) * y[20+x].f(45,7);
+  j = ((((((x < y) <= z) > y) >= z) != u) == k) + 5 - 5 * 5 / 5 && 5 || 
+-  5 % ! 5 + (int) 6 * (real) null;
+  in f[89]^.x;
+
+  out x[9];
+  alloc  f[x+7];
+  free  f[x+7];
+
+  if x > 0 then x = x+1
+  elsif x < 0 then x = x-1
+  elsif x == 0 then x = x+1
+  else x = x
+  endif;
+
+  if x > 0 then x = x+1
+  elsif x < 0 then x = x-1
+  elsif x == 0 then x = x+1
+  endif;
+
+  if x > 0 then x = x+1
+  endif;
+  
+  while x>0 do
+     x=x-1
+  endwhile	

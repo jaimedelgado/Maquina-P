@@ -1,0 +1,260 @@
+package astCUP;
+ 
+import java_cup.runtime.*;
+import alex.AnalizadorLexicoTiny;
+import alex.UnidadLexica;
+import errors.GestionErroresTiny;
+import ast.*;
+
+scan with {: return getScanner().next_token(); :};
+parser code {:  
+   private GestionErroresTiny errores;
+   public void syntax_error(Symbol unidadLexica) {
+ 	errores.errorSintactico((UnidadLexica)unidadLexica);
+   }
+
+   public int fila() {
+     return ((AnalizadorLexicoTiny)getScanner()).fila();
+   }
+:};
+init with {:  
+   errores = new GestionErroresTiny();
+   AnalizadorLexicoTiny alex = (AnalizadorLexicoTiny)getScanner();
+   alex.fijaGestionErrores(errores);
+:};
+ 
+    terminal     TIPO, SEPARADOR, PYCOMA, INT, REAL, CAP, CCIERRE, IDENTIFICADOR, REC,
+   			 ENDOBJECT, FUN, METHOD, RETURNS, END, REFERENCIA, PAP, PCIERRE, THIS, SUPER, ENDREC,
+				 POINTER, OBJECT, EXTENDS, MENORIGUAL, PUNTO, APOSTROFE, MENOR, MAYOR, OUT, MAYORIGUAL,
+				 ALLOC, IGUAL, FREE, DISTINTO, IF, OR, ELSE, MAS, MENOS, THEN, POR, ELSIF, DIV,
+				 ENDIF, MOD, WHILE, AND, DO, NOT, ENDWHILE, NULL, COMA, NUMENTERO, ASIG, NUMREAL, IN, RETURN,
+				 CASTREAL, CASTINT;
+				 
+    non terminal  Decs, Instrucciones, Programa,  LDecs, Declaracion, DecVariable, DecTipo, DTipo0, DTipo1, DTipoRegistro, LCampos, DTipoPuntero, DTipoObjeto, Superclase, LCamposOMet, Campo, DecFun, DecMet, Cabecera, Parametros, LParametros, Parametro, TipoRet, Designador ,OtroDesignador, DesigArray, DesigAtributo, DesigPuntero, Instruccion, IAsig, IIn, IOut, IAlloc, IFree, IIf, ParteElse, Casos, Caso, Is, IWhile, IReturn, Exp0, Exp1, Exp2, Exp3, Exp4, InvocacionFunMet, ParamsInvoc, LParamsInvoc, Op0NA, Op1, Op2, Op3, Op3NA;		
+
+	Programa ::= Decs: decs SEPARADOR Instrucciones: Ins
+    {:RESULT=Programa.programa((Decs)decs, (Instrucciones)Ins, parser.fila());:};
+	Decs ::= LDecs: ldecs
+    {:RESULT=Decs.listDecs((LDecs)ldecs, parser.fila());:};
+	Decs ::= 
+    {:RESULT=Decs.listDecsVacia(parser.fila());:};
+	LDecs ::= LDecs:ldecs PYCOMA Declaracion:dec
+    {:RESULT=LDecs.seqCompuestaDecs((LDecs)ldecs, (Declaracion)dec, parser.fila());:};  
+	LDecs ::= Declaracion:dec
+    {:RESULT=LDecs.seqSimpleDecs((Declaracion)dec, parser.fila());:};
+	Declaracion ::= DecVariable:decv
+    {:RESULT=Declaracion.decV((DecVar)decv, parser.fila());:};
+	Declaracion ::= DecTipo:dect
+    {:RESULT=Declaracion.decT((DecTipo)dect, parser.fila());:};
+	Declaracion ::= DecFun: decfun
+    {:RESULT=Declaracion.decF((DecFun)decfun, parser.fila());:};
+	DecVariable ::= DTipo0: dtipo0 IDENTIFICADOR: lexId
+    {:RESULT=DecVar.decVariable((DTipo0)dtipo0, (String)lexId, parser.fila());:};
+	DecTipo ::=  TIPO DTipo0:dtipo0 IDENTIFICADOR: lexId
+	{:RESULT=DecTipo.decTipo((DTipo0)dtipo0, (String)lexId, parser.fila());:};
+	DTipo0 ::= DTipoPuntero: dtipopuntero
+{:RESULT=DTipo0.dTipoPuntero((DTipoPuntero)dtipopuntero, parser.fila());:}; 
+DTipo0 ::= DTipo1:dtipo1
+	{:RESULT=DTipo0.dTipo1((DTipo1)dtipo1, parser.fila());:};
+	DTipo1 ::= INT
+	{:RESULT=DTipo1.tInt(parser.fila());:};
+DTipo1 ::= REAL
+{:RESULT=DTipo1.tReal(parser.fila());:};
+DTipo1 ::= IDENTIFICADOR: lexId
+{:RESULT=DTipo1.tipoid((String)lexId, parser.fila());:};
+DTipo1 ::= DTipoRegistro:dtiporegistro
+{:RESULT=DTipo1.dTipoRegistro((DTipoRegistro)dtiporegistro, parser.fila());:};
+DTipo1 ::= DTipoObjeto:dtipoobjeto
+{:RESULT=DTipo1.dTipoObjeto((DTipoObjeto)dtipoobjeto, parser.fila());:};
+DTipo1 ::= DTipo1:dtipo1 CAP NUMENTERO: n CCIERRE
+{:RESULT=DTipo1.array((DTipo1)dtipo1, (String)n, parser.fila());:};
+	DTipoRegistro ::= REC LCampos:lcampos ENDREC
+	{:RESULT=DTipoRegistro.registro((LCampos)lcampos, parser.fila());:};
+	LCampos ::= LCampos:lcampos PYCOMA DecVariable:decvariable
+	{:RESULT=LCampos.seqCompuestaVars((LCampos)lcampos, (DecVar)decvariable, parser.fila());:};
+LCampos ::=  DecVariable:decvariable
+{:RESULT=LCampos.seqSimpleVars((DecVar)decvariable, parser.fila());:};
+	DTipoPuntero ::= POINTER DTipo0:dtipo0
+	{:RESULT=DTipoPuntero.pointer((DTipo0)dtipo0, parser.fila());:};
+	DTipoObjeto ::= OBJECT Superclase:superclase LCamposOMet:lcamposomet ENDOBJECT
+{:RESULT=DTipoObjeto.objeto((Superclase)superclase, (Campos)lcamposomet, parser.fila());:};	 
+	Superclase ::= EXTENDS IDENTIFICADOR: lexId 
+	{:RESULT=Superclase.superclase((String)lexId, parser.fila());:};
+	Superclase ::=
+	{:RESULT=Superclase.superclaseVacia(parser.fila());:};
+	LCamposOMet ::= LCamposOMet:lcamposomet PYCOMA Campo:campo
+	{:RESULT=Campos.seqCompuestaCampos((Campos)lcamposomet, (Campo)campo, parser.fila());:};
+LCamposOMet ::= Campo:campo
+{:RESULT=Campos.seqSimpleCampos((Campo)campo, parser.fila());:};	 
+	Campo ::= DecVariable:decvariable
+	{:RESULT=Campo.campo((DecVar)decvariable, parser.fila());:};
+Campo ::= DecMet:decmet
+{:RESULT=Campo.campoMet((DecMet)decmet, parser.fila());:};
+	DecFun ::= FUN Cabecera:cabecera Programa:programa END IDENTIFICADOR:id
+	{:RESULT=DecFun.decFun((Cabecera)cabecera, (Programa)programa, (String)id, parser.fila());:};
+	DecMet ::= METHOD Cabecera:cabecera Programa:programa END IDENTIFICADOR:id
+	{:RESULT=DecMet.decMet((Cabecera)cabecera, (Programa)programa, (String)id, parser.fila());:};
+	Cabecera ::= IDENTIFICADOR: lexId  PAP Parametros:parametros PCIERRE  TipoRet:tiporet
+	{:RESULT=Cabecera.cabe((String)lexId, (Parametros)parametros, (TipoRet)tiporet,  parser.fila());:};
+	Parametros ::= LParametros:lparametros
+{:RESULT=Parametros.params((LParametros)lparametros, parser.fila());:}; 
+Parametros::=
+{:RESULT=Parametros.paramsVacios(parser.fila());:};
+	LParametros ::= LParametros:lparametros COMA Parametro:parametro
+	{:RESULT=LParametros.seqCompuestaParams((LParametros)lparametros, (Parametro)parametro, parser.fila());:};
+LParametros ::= Parametro:parametro
+{:RESULT=LParametros.seqSimpleParams((Parametro)parametro, parser.fila());:};
+	Parametro ::= DTipo0:dtipo0 IDENTIFICADOR: lexId
+	{:RESULT=Parametro.param((DTipo0)dtipo0, (String)lexId, parser.fila());:};
+Parametro ::= DTipo0:dtipo0 REFERENCIA IDENTIFICADOR: lexId
+{:RESULT=Parametro.paramRef((DTipo0)dtipo0, (String)lexId, parser.fila());:};
+	TipoRet ::= RETURNS DTipo0:dtipo0
+	{:RESULT=TipoRet.tReturn((DTipo0)dtipo0, parser.fila());:};
+	TipoRet ::=
+	{:RESULT=TipoRet.sinReturn(parser.fila());:};
+	Designador ::= IDENTIFICADOR: lexId
+	{:RESULT=Designador.var((String)lexId, parser.fila());:};
+Designador ::= OtroDesignador:otrodesignador
+{:RESULT=Designador.otroDesignador((OtroDesignador)otrodesignador, parser.fila());:};
+Designador ::= DesigArray:desigarray
+{:RESULT=Designador.desigArray((DesigArray)desigarray, parser.fila());:};
+Designador ::= DesigAtributo:desigatributo
+{:RESULT=Designador.desigAtributo((DesigAtributo)desigatributo, parser.fila());:};
+Designador ::= DesigPuntero:desigpuntero
+{:RESULT=Designador.desigPuntero((DesigPuntero)desigpuntero, parser.fila());:};
+	OtroDesignador ::= THIS
+	{:RESULT=OtroDesignador.dThis(parser.fila());:};
+OtroDesignador ::= SUPER 
+{:RESULT=OtroDesignador.dSuper(parser.fila());:};
+	DesigArray ::= Designador:designador CAP Exp0:exp0 CCIERRE
+	{:RESULT=DesigArray.indxElem((Designador)designador, (Exp0)exp0, parser.fila());:};
+	DesigAtributo ::= Designador:designador PUNTO IDENTIFICADOR: lexId
+	{:RESULT=DesigAtributo.selCampo((Designador)designador, (String)lexId, parser.fila());:};
+	DesigPuntero ::= Designador:designador APOSTROFE
+	{:RESULT=DesigPuntero.deref((Designador)designador, parser.fila());:};
+	Instrucciones ::= Instrucciones:instrucciones PYCOMA Instruccion:instruccion
+	{:RESULT=Instrucciones.seqCompuestaIs((Instrucciones)instrucciones, (Instruccion)instruccion, parser.fila());:};
+Instrucciones ::= Instruccion:instruccion
+	{:RESULT=Instrucciones.seqSimpleIs((Instruccion)instruccion, parser.fila());:};
+	Instruccion ::= IAsig:iasig
+	{:RESULT=Instruccion.iAsig((IAsig)iasig, parser.fila());:};
+Instruccion ::= IIn:iin
+{:RESULT=Instruccion.iIn((IIn)iin, parser.fila());:};
+Instruccion ::= IOut:iout
+{:RESULT=Instruccion.iOut((IOut)iout, parser.fila());:};
+Instruccion ::= IAlloc:ialloc
+{:RESULT=Instruccion.iAlloc((IAlloc)ialloc, parser.fila());:};
+Instruccion ::= IFree:ifree
+{:RESULT=Instruccion.iFree((IFree)ifree, parser.fila());:};
+Instruccion ::= IIf:iif
+{:RESULT=Instruccion.iIf((IIf)iif, parser.fila());:};
+Instruccion ::= IWhile:iwhile
+{:RESULT=Instruccion.iWhile((IWhile)iwhile, parser.fila());:};
+Instruccion ::= IReturn:ireturn
+{:RESULT=Instruccion.iReturn((IReturn)ireturn, parser.fila());:};
+Instruccion ::= InvocacionFunMet:invoc
+{:RESULT=Instruccion.invocFunMet((InvocacionFunMet)invoc, parser.fila());:};
+	IAsig ::= Designador:des ASIG Exp0:exp0
+	{:RESULT=IAsig.iasig((Designador)des, (Exp0)exp0, parser.fila());:};
+	IIn ::= IN Designador:des
+	{:RESULT=IIn.iin((Designador)des, parser.fila());:};
+	IOut ::= OUT Designador:des
+{:RESULT=IOut.iout((Designador)des, parser.fila());:};  
+	IAlloc ::= ALLOC Designador:des
+{:RESULT=IAlloc.ialloc((Designador)des, parser.fila());:};  
+	IFree ::= FREE Designador:des
+	{:RESULT=IFree.ifree((Designador)des, parser.fila());:};
+	IIf ::= IF Casos:casos ParteElse:parteelse ENDIF
+	{:RESULT=IIf.iIf((Casos)casos, (ParteElse)parteelse, parser.fila());:};
+	ParteElse ::= ELSE Is:is
+	{:RESULT=ParteElse.pElse((Is)is, parser.fila());:};
+	ParteElse ::=
+{:RESULT=ParteElse.sinpElse(parser.fila());:};
+	Casos ::= Casos:casos ELSIF Caso:caso
+	{:RESULT=Casos.seqCompuestaCasos((Casos)casos, (Caso)caso, parser.fila());:};
+Casos ::= Caso:caso
+{:RESULT=Casos.seqSimpleCasos((Caso)caso, parser.fila());:};
+	Caso ::= Exp0:exp0 THEN Is:is
+	{:RESULT=Caso.caso((Exp0)exp0, (Is)is, parser.fila());:};
+	Is ::= Instrucciones:is
+{:RESULT=Is.instrucciones((Instrucciones)is, parser.fila());:};
+	Is ::=
+	{:RESULT=Is.sinInstrucciones(parser.fila());:};
+	IWhile ::= WHILE Exp0:exp0 DO Is:is ENDWHILE
+	{:RESULT=IWhile.iwhile((Exp0)exp0, (Is)is, parser.fila());:};
+	IReturn ::= RETURN Exp0:exp0
+	{:RESULT=IReturn.iReturn((Exp0)exp0, parser.fila());:};
+	Exp0 ::= Exp1:e1 Op0NA:op Exp1:e2
+	{:RESULT=Exp0.exp01((Exp1)e1, (Op0NA)op, (Exp1)e2, parser.fila());:};
+Exp0 ::= Exp1:e
+{:RESULT=Exp0.exp02((Exp1)e, parser.fila());:};
+	Exp1 ::= Exp1:e1 Op1:op Exp2:e2
+	{:RESULT=Exp1.exp11((Exp1)e1, (Op1)op, (Exp2)e2, parser.fila());:};
+Exp1 ::= Exp2:e
+{:RESULT=Exp1.exp12((Exp2)e, parser.fila());:};
+	Exp2 ::= Exp2:e1 Op2:op Exp3:e2
+	{:RESULT=Exp2.exp21((Exp2)e1, (Op2)op, (Exp3)e2, parser.fila());:};
+Exp2 ::= Exp3:e
+{:RESULT=Exp2.exp22((Exp3)e, parser.fila());:};
+	Exp3 ::= Op3:op Exp3:e
+	{:RESULT=Exp3.exp31((Op3)op, (Exp3)e, parser.fila());:};
+Exp3 ::= Op3NA:op Exp4:e
+{:RESULT=Exp3.exp32((Op3NA)op, (Exp4)e, parser.fila());:};
+Exp3 ::= Exp4:e
+{:RESULT=Exp3.exp33((Exp4)e, parser.fila());:};
+	Exp4 ::= NUMENTERO: n
+	{:RESULT=Exp4.numEntero((String)n, parser.fila());:};
+Exp4 ::= NUMREAL: r
+{:RESULT=Exp4.numReal((String)r, parser.fila());:};
+Exp4 ::= Designador:d
+{:RESULT=Exp4.mem((Designador)d, parser.fila());:};
+Exp4 ::= NULL
+{:RESULT = Exp4.eNull(parser.fila());:};
+Exp4 ::= InvocacionFunMet:i
+{:RESULT=Exp4.invocFunMet((InvocacionFunMet)i, parser.fila());:};
+Exp4 ::= PAP Exp0:e PCIERRE
+{:RESULT=Exp4.exp41((Exp0)e, parser.fila());:};
+	InvocacionFunMet ::= Designador:d PAP ParamsInvoc:p PCIERRE
+	{:RESULT=InvocacionFunMet.llamada((Designador)d, (ParamsInvoc)p, parser.fila());:};
+	ParamsInvoc ::= LParamsInvoc:l
+	{:RESULT=ParamsInvoc.paramsInvoc((LParamsInvoc)l, parser.fila());:};
+	ParamsInvoc ::=
+	{:RESULT=ParamsInvoc.paramsInvocVacios(parser.fila());:};
+	LParamsInvoc ::= LParamsInvoc:l COMA  Exp0:e0
+	{:RESULT=LParamsInvoc.seqCompuestaExps((LParamsInvoc)l, (Exp0)e0, parser.fila());:};
+LParamsInvoc ::= Exp0:e0
+{:RESULT=LParamsInvoc.seqSimpleExps((Exp0)e0, parser.fila());:};
+Op0NA ::= MENOR
+	{: RESULT=Op0NA.op0naMenor(parser.fila()); :};
+Op0NA ::= MAYOR
+	{: RESULT=Op0NA.op0naMayor(parser.fila()); :};
+Op0NA ::= MENORIGUAL
+	{: RESULT=Op0NA.op0naMenorIgual(parser.fila()); :};
+Op0NA ::= MAYORIGUAL
+	{: RESULT=Op0NA.op0naMayorIgual(parser.fila()); :};
+Op0NA ::= IGUAL
+	{: RESULT=Op0NA.op0naIgual(parser.fila()); :};
+Op0NA ::= DISTINTO
+	{: RESULT=Op0NA.op0naDistinto(parser.fila()); :};
+Op1 ::= OR
+	{: RESULT=Op1.op1Or(parser.fila()); :};
+Op1 ::= MAS
+	{: RESULT=Op1.op1Mas(parser.fila()); :};
+Op1 ::= MENOS
+	{: RESULT=Op1.op1Menos(parser.fila()); :};
+Op2 ::= POR
+	{: RESULT=Op2.op2Por(parser.fila()); :};
+Op2 ::= DIV
+	{: RESULT=Op2.op2Div(parser.fila()); :};
+Op2 ::= MOD
+	{: RESULT=Op2.op2Mod(parser.fila()); :};
+Op2 ::= AND
+	{: RESULT=Op2.op2And(parser.fila()); :};
+Op3 ::= MENOS
+	{: RESULT=Op3.op3Menos(parser.fila()); :};
+Op3 ::= NOT
+	{: RESULT=Op3.op3Not(parser.fila()); :};
+Op3NA ::= CASTINT
+	{: RESULT=Op3NA.op3naCastInt(parser.fila()); :};
+Op3NA ::= CASTREAL
+	{: RESULT=Op3NA.op3naCastReal(parser.fila()); :};

@@ -1,0 +1,86 @@
+tipo int id;
+
+object extends Persona
+	String nombre;
+	Hijo[3] hijos;
+	pointer Casa casa;
+	int edad;
+	real peso;
+	
+	method Persona(String nombre, Hijo[3] hijos, Casa casa, int edad, real peso, int anyos)
+		int i
+		#
+		super(anyos);
+		this.nombre = nombre;
+		i=0;
+		@ Hay que poner parentesis a i>=0 porque el operador >= tiene menor prioridad que &&
+		while(i<3 && i>=0) do
+			this.hijos[i] = hijos[i];
+			i = i+1
+		endwhile @ Hay que cerrarlo con ";" porque no es la última instrucción
+		this.casa = casa;
+		this.edad = edad;
+		this.peso = peso;
+		this.Casa.seguridad.activar()
+	end Persona;
+	
+	rec 
+		Habitacion[5] habitaciones;
+		Electrodomestico[10] electrodomesticos;
+		object
+			Alarma alarma;
+			int tiempo;
+			bool ok;
+			method activar(bool &ok) returns bool
+				#
+				if(this.ok && tiempo==10) then
+					this.ok = ok
+				endif;
+				return this.ok
+			end activar
+		endobject seguridad
+	endrec; @Hay que poner un identificador después de endrec
+	
+	method toString1() returns String
+		double veces;
+		int i;
+		String texto
+		#
+		veces = --5.034e-98;
+		@ Comprobación de que ignora bien los comentarios habiendo palabras reservadas como while, if, else, etc
+		while( i < (int)veces ) do
+			texto = texto + nombre; 
+			texto = texto + this.hijos[0].toString()
+		endwhile;
+		
+		return texto; @ hay que quitar el ";" porque es la última instrucción
+	end @hay que poner end, no endmethod. Y hay que poner un identificador y ";" al no ser la última instrucción
+	pointer int[3] Perro
+	
+endobject padre;
+int edad;
+String _texto;
+
+fun pintarPersonas(Personas[] &personas) @Hay que indicar el tamaño del array de personas
+	int i;
+	String texto
+	#
+	i = 0;
+	while(i < personas.length) do
+		texto = "____________________________________________________________"; @ hay que quitar las comillas dobles
+		texto = texto + personas[i].toString1();
+		texto = "____________________________________________________________" @ hay que quitar las comillas dobles
+	endwhile;
+	
+	out texto
+end pintarPersonas
+
+
+#
+alloc padre.persona;
+in edad;
+padre.edad = edad;
+alloc persona.casa^;
+texto = persona.toString1();
+out _texto;
+free persona

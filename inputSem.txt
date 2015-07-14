@@ -1,0 +1,47 @@
+object int y endobject Superclase;
+rec
+                  int c3; 		 
+				  int[10] c4
+                 endrec  c2;
+
+int x;
+tipo
+  object extends Superclase
+         int c0;
+		 real c1;
+         method m(rec int x; int y endrec p1, int & p2, int p3)
+           #
+           x = x+y
+         end m;
+         pointer rec
+                  int c3; 		 
+				  int[10] c4
+                 endrec  c2
+   endobject[60] tipocomplejo;
+pointer int x2
+
+
+#
+x=6;
+out x;
+in x;
+x=x+1;
+while x!=0 do
+x=x-1;
+out x
+endwhile;
+if x>x+1 then
+	x = x+1;
+	x = x+2+3;
+	x = x+1
+elsif x>x+1 then
+	x = x+1;
+	x = x+2+3;
+	x = x+1
+	elsif x>x+1 then
+	x = x+1;
+	x = x+2+3;
+	x = x+1
+else
+	x=x+1
+endif

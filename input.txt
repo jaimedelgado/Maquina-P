@@ -1,0 +1,86 @@
+tipo int id;
+
+object extends Persona
+	String nombre;
+	Hijo[3] hijos;
+	pointer Casa casa;
+	int edad;
+	real peso;
+	
+	method Persona(String nombre, Hijo[3] hijos, Casa casa, int edad, real peso, int anyos)
+		int i
+		#
+		super(anyos);
+		this.nombre = nombre;
+		i=0;
+		while(i<3 && (i>=0)) do
+			this.hijos[i] = hijos[i];
+			i = i+1
+		endwhile;
+		this.casa = casa;
+		this.edad = edad;
+		this.peso = peso;
+		this.Casa.seguridad.activar()
+	end Persona;
+	
+	rec 
+		Habitacion[5] habitaciones;
+		Electrodomestico[10] electrodomesticos;
+		object
+			Alarma alarma;
+			int tiempo;
+			bool ok;
+			method activar(bool &ok) returns bool
+				#
+				if(this.ok && tiempo==10) then
+					this.ok = ok
+				endif;
+				return this.ok
+			end activar
+		endobject seguridad
+	endrec Casa;
+	
+	method toString1() returns String
+		double veces;
+		int i;
+		String texto
+		#
+		veces = --5.034e-98;
+		@ Comprobación de que ignora bien los comentarios habiendo palabras reservadas como while, if, else, etc
+		while( i < (int)veces ) do
+			texto = texto + nombre; @Aquí podríamos meter un salto de linea 
+			texto = texto + this.hijos[0].toString()
+		endwhile;
+		
+		return texto
+	end toString;
+	pointer int[6] Perro
+	
+endobject padre;
+int edad;
+String _texto;
+
+fun pintarPersonas(Personas[3] &personas)
+	int i;
+	String texto
+	#
+	i = 0;
+	while(i < personas.length) do
+		texto = ____________________________________________________________;
+		texto = texto + personas[i].toString1();
+		texto = ____________________________________________________________
+	endwhile;
+	
+	out texto
+end pintarPersonas
+
+
+#
+alloc padre.persona;
+in edad;
+padre.edad = edad;
+alloc persona.casa^;
+texto = persona.toString1();
+out _texto;
+free persona;
+id = 0.5
